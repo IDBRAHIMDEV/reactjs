@@ -4,6 +4,7 @@ import './Courses.css';
 export default class Courses extends Component {
 
     state = {
+        myCourse: "new course",
         courses: [
             {
                 id: 1,
@@ -23,17 +24,29 @@ export default class Courses extends Component {
         ]
     }
 
+    bindCourse = e => {
+       
+        this.setState({
+            myCourse: e.target.value
+        }, () => console.log('AFTER: ', this.state.myCourse))
+
+        
+    }
+
     render() {
         return (
             <div>
-                <input className="form-control mb-1" type="search" placeholder="Add new course"/>
+                <input onChange={ this.bindCourse } className="form-control mb-1" type="search" placeholder="Add new course"/>
                 <button className="btn btn-success btn-block mb-3">Add</button>
+                
+                <h1>{ this.state.myCourse }</h1>
                 <ul className="list-group">
-                    <li className="list-group-item">
-                        <h2>item 1</h2>
-                        <em>content for this element 1</em>
+                    { this.state.courses.map(course => (
+                        <li className="list-group-item">
+                        <h2>{ course.title }</h2>
+                        <em>{ course.body }</em>
                     </li>
-                   
+                    )) }
                 </ul>
             </div>
         )
