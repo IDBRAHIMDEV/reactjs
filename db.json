@@ -1,0 +1,9 @@
+{
+  "posts": [
+    {
+      "title": "Learn Angular",
+      "body": "Learn from Scratch Angular Framework",
+      "id": 1
+    }
+  ]
+}
