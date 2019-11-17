@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
 class Posts extends Component {
 
@@ -57,13 +58,40 @@ class Posts extends Component {
              .catch(err => console.error(err))
     }
 
+    deletePost = async (id) => {
+   
+
+    Swal.fire({
+        title: 'Are you sure to delete this post?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Ok',
+        cancelButtonText: 'Cancel'
+      }).then(async (result) => {
+        if (result.value) {
+
+             await axios.delete(`http://localhost:5000/posts/${id}`);
+             this.getPosts();
+          Swal.fire({
+            title: 'Post deleted !',
+            icon: 'success',
+            timer: 3000
+          })
+        // For more information about handling dismissals please visit
+        // https://sweetalert2.github.io/#handling-dismissals
+        }
+      })
+    } 
+
     render() {
         console.log('render');
         return (
             <div>
 
 <div className="text-right">
-                   <button onClick={this.display} className="btn btn-success btn-sm my-3">+</button>
+                   <button onClick={this.display} className="btn btn-success btn-sm my-3">
+                       <i className="fa fa-plus"></i>
+                   </button>
                 </div>
                  
                 { this.state.displayForm ? (
@@ -103,10 +131,17 @@ class Posts extends Component {
                       { this.state.posts.map(post => 
                            (
                             <tr key={post.id}>
-                                <td scope="row">{post.id}</td>
+                                <td scope="row">
+                                    <i className="fa fa-power-off"></i>
+                                </td>
                                 <td><h5>{ post.title }</h5></td>
                                 <td><em>{ post.body }</em></td>
-                                <td></td>
+                                <td nowrap>
+                                    <button className="btn mr-1 btn-warning btn-sm">
+                                        <i className="fa fa-pencil"></i>
+                                    </button>
+                                    <button onClick={ () => this.deletePost(post.id)} className="btn btn-danger btn-sm"><i className="fa fa-times"></i></button>
+                                </td>
                             </tr>
                            )
                         ) }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Posts from './Posts';
 
 import './App.css';
@@ -8,31 +9,19 @@ import Navbar from './Navbar';
 function App() {
   return (
     <div>
-      <Navbar />
+      <Router>
+        <Navbar />
 
         <div className="container">
-         
-         <div className="row">
-           <div className="col-12">
-             <Posts />
-           </div>
-         </div>
 
-
-        <div className="row">
-          <div className="col-12">
-            <h1>Learn RectJS</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, vero? </p>
-          </div>
-        </div>
-
-
-        <div className="row">
-          <div className="col-6 mx-auto">
-            <Courses />
-          </div>
-        </div>
+           <Switch>
+               <Route exact path="/blog" component={Posts}></Route>
+               <Route exact path="/courses" component={Courses}></Route>
+               <Route component={Courses}></Route>
+           </Switch>
+        
       </div>
+      </Router>
     </div>
   );
 }
