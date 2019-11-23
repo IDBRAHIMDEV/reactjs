@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Posts from './Posts';
+import UsersList from './users/UsersList';
 
 import './App.css';
 import Courses from './Courses';
@@ -17,6 +18,7 @@ function App() {
            <Switch>
                <Route exact path="/blog" component={Posts}></Route>
                <Route exact path="/courses" component={Courses}></Route>
+               <Route exact path="/users" component={UsersList}></Route>
                <Route component={Courses}></Route>
            </Switch>
         

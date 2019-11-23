@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import './Courses.css';
+import CourseList from './CourseList';
+import CourseGrid from './CourseGrid';
 
 export default class Courses extends Component {
 
     state = {
+        display: 'list',
         editable: null,
         myCourse: "",
         courses: [
@@ -86,21 +89,27 @@ export default class Courses extends Component {
                   (<button onClick={ this.addCourse } className="btn btn-success btn-block mb-3">Add</button>)
                }
                 
-                
-                <h1>{ this.state.myCourse }</h1>
-                <ul className="list-group">
-                    { this.state.courses.map(course => (
-                        <li key={course.id} className="list-group-item">
-                        <h2>{ course.title }</h2>
-                        <em>{ course.body }</em>
 
-                        <div className='text-right'>
-                            <button onClick={ () => this.editCourse(course) } className="btn btn-warning btn-sm mr-1">Edit</button>
-                            <button onClick={ () => this.deleteCourse(course.id)} className="btn btn-dark btn-sm">Delete</button>
-                        </div>
-                    </li>
-                    )) }
-                </ul>
+             <div className="row">
+                 <div className="col-md-12">
+
+                        <button onClick={ () => this.setState({ display: 'list' }) } className="btn btn-sm btn-light">
+                            <i className="fa fa-list"></i>
+                        </button>
+                        <button onClick={ () => this.setState({ display: 'grid' }) } className="btn btn-sm btn-light">
+                            <i className="fa fa-th"></i>
+                        </button>
+
+                 </div>
+             </div>
+
+               { this.state.display === 'list' ?
+                 <CourseList courses={this.state.courses} /> 
+                 :
+                 <CourseGrid courses={this.state.courses} />
+                }
+
+               
             </div>
         )
     }
